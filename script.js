@@ -70,6 +70,7 @@ function addToCart(name, price) {
 function updateCartModal() {
     cartItemsContainer.innerHTML = "";
     let total = 0;
+    let totalQuantidade = 0;
 
     cart.forEach(item => {
         const cartItemElement = document.createElement("div");
@@ -96,6 +97,8 @@ function updateCartModal() {
 
         total += item.price * item.quantity;
 
+        totalQuantidade += item.quantity;
+
 
         cartItemsContainer.appendChild(cartItemElement)
     })
@@ -105,7 +108,7 @@ function updateCartModal() {
         currency: "BRL"
     });
 
-    cartCounter.innerHTML = cart.length;
+    cartCounter.innerHTML = totalQuantidade;
 
 }
 
