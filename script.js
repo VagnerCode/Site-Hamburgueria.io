@@ -1,14 +1,14 @@
-const menu = document.getElementById("menu")
-const cartBtn = document.getElementById("cart-btn")
-const cartModal = document.getElementById("cart-modal")
-const cartItemsContainer = document.getElementById("cart-items")
-const cartTotal = document.getElementById("cart-total")
-const checkoutBtn = document.getElementById("checkout-btn")
-const closeModalBtn = document.getElementById("close-modal-btn")
-const cartCounter = document.getElementById("cart-count")
-const addressInput = document.getElementById("address")
-const addressWarn = document.getElementById("address-warn")
-
+const menu = document.getElementById("menu");
+const cartBtn = document.getElementById("cart-btn");
+const cartModal = document.getElementById("cart-modal");
+const cartItemsContainer = document.getElementById("cart-items");
+const cartTotal = document.getElementById("cart-total");
+const checkoutBtn = document.getElementById("checkout-btn");
+const closeModalBtn = document.getElementById("close-modal-btn");
+const cartCounter = document.getElementById("cart-count");
+const addressInput = document.getElementById("address");
+const addressWarn = document.getElementById("address-warn");
+const observersionInput = document.getElementById("observacao");
 
 let cart = [];
 
@@ -85,11 +85,9 @@ function updateCartModal() {
                 <p class="font-medium mt-2">R$ ${item.price.toFixed(2)}</p>
             </div>
 
-
-            <button class = "remove-btn" data-name = "${item.name}">
-                remove
+            <button class = "remove-btn bg-red-500 text-white p-2 rounded-md hover:bg-red-600 active:bg-red-600" data-name = "${item.name}">
+                Remover
             </button
-
 
         </div>
         
@@ -120,7 +118,6 @@ cartItemsContainer.addEventListener("click", function (event) {
         removeItemCart(name);
     }
 
-
 })
 
 function removeItemCart(name) {
@@ -150,57 +147,55 @@ addressInput.addEventListener("input", function (event) {
     }
 })
 
-checkoutBtn.addEventListener("click", function () {
+    checkoutBtn.addEventListener("click", function () {
 
-    const isOpen = ckeckRestaurantOpen();
-    if (!isOpen) {
+        const isOpen = ckeckRestaurantOpen();
+        if (!isOpen) {
 
-        Toastify({
-            text: "Ops! restaurante esta fechado no momento..",
-            duration: 3000,
-            close: true,
-            gravity: "top", // `top` or `bottom`
-            position: "right", // `left`, `center` or `right`
-            stopOnFocus: true, // Prevents dismissing of toast on hover
-            style: {
-                background: "#ef4444",
-            },
-        }).showToast();
+            Toastify({
+                text: "Ops! restaurante esta fechado no momento..",
+                duration: 3000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                    background: "#ef4444",
+                },
+            }).showToast();
 
-        return;
-    }
+            return;
+        }
 
-    if (cart.length === 0) return;
+        if (cart.length === 0) return;
 
-    if (addressInput.value === "") {
-        addressWarn.classList.remove("hidden")
-        addressInput.classList.add("border-red-500")
-        return;
-    }
+        if (addressInput.value === "") {
+            addressWarn.classList.remove("hidden")
+            addressInput.classList.add("border-red-500")
+            return;
+        }
 
-    const cartItems = cart.map((item) => {
-        return (
-            `${item.name} \n Quantidade: (${item.quantity}) \n Preco: R$${item.price.toFixed(2)} \n \n `
-        )
-    }).join("")
+        const total = cart.reduce((accumulator, item) => accumulator + item.price * item.quantity, 0);
 
-    const message = encodeURIComponent(cartItems)
-    const phone = "5511989074083"
+        const cartItems = cart.map((item) => {
+            return (
+                `${item.name} \n Quantidade: (${item.quantity}) \n Preco: R$${item.price.toFixed(2)} \n \n `
+            )
+        }).join("")
 
-    window.open(`https://wa.me/${phone}?text=${message} Endereco: ${addressInput.value} `, "_blank")
+        const message = encodeURIComponent(`${cartItems} Endereco: ${addressInput.value} \n Observações: ${observersionInput.value} \n`)
+        const phone = "5511989074083"
+        window.open(`https://wa.me/${phone}?text=${message} Total: R$${total.toFixed(2)} `, "_blank")
 
-    cart = [];
-    updateCartModal();
-})
-
+        cart = [];
+        updateCartModal();
+    })
 
 function ckeckRestaurantOpen() {
     const data = new Date();
     const hora = data.getHours();
     return hora >= 18 && hora < 22;
-
 }
-
 
 const spamItem = document.getElementById("date-span")
 const isOpen = ckeckRestaurantOpen();

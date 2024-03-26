@@ -241,9 +241,9 @@
 
     <!-- modal cart -->
     <div id="cart-modal"
-        class="bg-black/60 w-full h-full fixed top-0 left-0 z-[99]  items-center justify-center hidden ">
+        class="bg-black/60 w-full h-full fixed top-0 left-0 z-[99] items-center justify-center hidden ">
 
-        <div class="bg-white p-5 rounded-md min-w-[90%] md:min-w-[600px]">
+        <div class="bg-white p-5 rounded-md min-w-[90%] h-[21.5rem] overflow-y-auto md:min-w-[600px] ">
             <h2 class="text-center font-bold text-2xl mb-2">Meu carinho</h2>
 
             <div id="cart-items" class="flex justify-between mb-2 flex-col"></div>
@@ -252,13 +252,17 @@
 
             <p class="font-bold mt-4">Endereco de entrega:</p>
             <input type="text" placeholder="Digite seu endereco completo.." id="address"
-                class="w-full border-2 p-2 rounded my-1">
+                class="w-full border-2 p-2 rounded my-1"
+            >
 
             <p class="text-red-500 hidden" id="address-warn">Digite seu endereco completo!</p>
 
+            <label for="observacao" class="font-bold mt-4">Oberservações:</label>
+            <input type="text" name="observacao" id="observacao" class="w-full border-2 p-2 rounded my-1">
+
             <div class="flex items-center justify-between mt-5 w-full">
-                <button id="close-modal-btn">Fechar</button>
-                <button id="checkout-btn" class="bg-green-500 text-white px-4 py-1 rounded">Finalizar pedido</button>
+                <button id="close-modal-btn" >Fechar</button>
+                <button id="checkout-btn" class="bg-green-500 text-white px-4 py-1 rounded shadow">Finalizar pedido</button>
             </div>
 
         </div>
@@ -266,11 +270,11 @@
     <!-- fim modal cart -->
 
     <!-- footer  -->
-    <footer class="w-full bg-red-500 py-3 fixed bottom-0 z-40 flex items-center justify-center rounded  ">
+    <footer class="w-full bg-red-500 py-3 fixed bottom-0 z-40 flex items-center justify-center rounded-full mb-2">
         <button class="flex items-center gap-2 text-white font-bold" id="cart-btn">
             (<span id="cart-count">0</span>)
-            Veja meu carrinho
-            <i class="fa fa-cart-plus text-lg text-white"></i>
+            Ver carrinho
+            <i class="fa-solid fa-cart-shopping text-white"></i>
         </button>
 
     </footer>
